@@ -44,7 +44,7 @@
 #include <gtk/gtk.h>
 
 /* XPM */
-static char *ocean_stripes[] = {
+static const char *ocean_stripes[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 3 1",
 "  c #A0A9C1",
