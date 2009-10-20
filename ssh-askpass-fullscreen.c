@@ -239,8 +239,6 @@ enter_callback(GtkWidget *widget,
 void
 passphrase_dialog(char *message)
 {
-	gchar **messages;
-
 	GtkWidget *frame, *align, *vbox, *hbox;
 	GdkPixbuf *tmp_pixbuf, *pixbuf, *tile_pixbuf;
 	GdkPixmap *pixmap;
