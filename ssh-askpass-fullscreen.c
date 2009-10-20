@@ -247,7 +247,7 @@ passphrase_dialog(char *message)
 	GdkColor color;
 	gchar *str;
         GdkGrabStatus status;
-        int grab_tries;
+        int grab_tries = 0;
         const char *failed;
         
  	grab_server = (getenv("GNOME_SSH_ASKPASS_GRAB_SERVER") != NULL); 
