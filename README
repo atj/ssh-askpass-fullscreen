@@ -1,0 +1,6 @@
+A tiny GTK2 ssh askpass replacement.
+
+Thanks to:
+
+Ryan Lovett <ryan@ocf.berkeley.edu>, for gtk2.0/gtk2.1 compilation fixes
+Marco Presi <zufus@zufus.org>, for patches and debian packaging

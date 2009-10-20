@@ -1,0 +1,25 @@
+2006-01-16  Christopher R. Gabriel  <cgabriel@truelite.it>
+
+	* ssh-askpass-fullscreen.c: added a patch from Marco Presi
+	<zufus@zufus.org> to fix X keyboard grabbing and avoid the window
+	manager to grab keyboard shortcuts.
+
+	Fully renamed the software to ssh-askpass-fullscreen
+
+	Version bump: 0.4
+
+2003-03-07  Christopher R. Gabriel  <cgabriel@cgabriel.org>
+
+	* AUTHORS: added this file
+
+	* README: 1.2 removed Federico.
+
+	* COPYING: added this file :)
+
+	* gtk2-ssh-askpass.c: 1.4 code cleanup
+
+2002-12-14  Christopher R. Gabriel  <cgabriel@cgabriel.org>
+
+	* gtk2-ssh-askpass.c (passphrase_dialog): 1.4 patch from Ryan
+	Lovett <ryan@ocf.berkeley.edu> , in order to compile on gtk 2.0.x
+
