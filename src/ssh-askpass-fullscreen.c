@@ -120,7 +120,6 @@ static const char *ocean_stripes[] = {
 
 
 GtkWidget *window, *label, *entry;
-gint result;
 gint grab_server, grab_pointer;
 
 static void
@@ -227,8 +226,7 @@ enter_callback(GtkWidget *widget,
   gdk_keyboard_ungrab(GDK_CURRENT_TIME);
   gdk_flush();
   
-  if (result == 0) /* result is always == 0, what this check is for? */
-	puts(passphrase);
+  puts(passphrase);
 		
   memset((void*)passphrase, '\0', strlen(passphrase)); 
   gtk_entry_set_text(GTK_ENTRY(entry), passphrase);
