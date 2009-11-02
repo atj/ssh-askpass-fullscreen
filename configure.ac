@@ -1,4 +1,4 @@
-AC_INIT([ssh-askpass-fullscreen], [0.4])
+AC_INIT([ssh-askpass-fullscreen], [1.0])
 AC_CONFIG_SRCDIR(src/${PACKAGE_NAME}.c)
 
 AM_INIT_AUTOMAKE([-Wall -Werror foreign dist-bzip2])

@@ -1,3 +1,13 @@
+2009-11-02  Adam James <atj@pulsewidth.org.uk>
+
+	* ssh-askpass-fullscreen.c: various minor fixes for compilation
+	warnings, uninitialized/unused variables and implicit declaration
+	of functions.
+
+	Converted build system to autotools
+
+	Version bump: 1.0
+
 2006-01-16  Christopher R. Gabriel  <cgabriel@truelite.it>
 
 	* ssh-askpass-fullscreen.c: added a patch from Marco Presi
