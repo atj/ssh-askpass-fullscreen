@@ -336,10 +336,7 @@ passphrase_dialog(char *message)
 	gtk_window_stick(GTK_WINDOW(window));
 	gtk_widget_grab_focus(entry);	 
 	gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
-
-#if GTK_MINOR_VERSION > 0
 	gtk_window_fullscreen(GTK_WINDOW(window));
-#endif
 
 	gtk_widget_show(GTK_WIDGET(window));
 
