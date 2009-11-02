@@ -264,7 +264,7 @@ passphrase_dialog(char *message)
 	color.green = 0;
 
  	tile_pixbuf = create_tile_pixbuf(NULL, pixbuf,
-					 rect, 155,
+					 &rect, 155,
 					 &color);
 
 	g_object_unref(pixbuf);
