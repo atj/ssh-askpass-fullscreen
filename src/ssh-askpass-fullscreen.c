@@ -334,6 +334,7 @@ passphrase_dialog(char *message)
 					  (gpointer) entry);
 
 	gtk_window_stick(GTK_WINDOW(window));
+	gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
 	gtk_widget_grab_focus(entry);	 
 	gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 	gtk_window_fullscreen(GTK_WINDOW(window));
