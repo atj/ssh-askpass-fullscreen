@@ -1,4 +1,4 @@
-AM_CFLAGS = --pedantic -Wall $(GTK_CFLAGS)
+AM_CFLAGS = -pedantic -Wall -Wextra $(GTK_CFLAGS)
 AM_LDFLAGS =
 
 bin_PROGRAMS = ssh-askpass-fullscreen
