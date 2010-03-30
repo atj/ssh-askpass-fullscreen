@@ -34,6 +34,12 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#ifdef __GNUC__
+#define ATTR_UNUSED	__attribute__((unused))
+#else
+#define ATTR_UNUSED
+#endif
+
 /* XPM */
 static const char *ocean_stripes[] = {
 /* columns rows colors chars-per-pixel */
@@ -199,7 +205,7 @@ create_tile_pixbuf (GdkPixbuf    *dest_pixbuf,
 }
 
 void
-enter_callback(GtkWidget *widget,
+enter_callback(GtkWidget *widget ATTR_UNUSED,
                GtkWidget *entryw)
 {
 	const gchar *passphrase;
