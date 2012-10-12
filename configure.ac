@@ -8,7 +8,7 @@ AC_PROG_CC
 AC_CHECK_HEADERS([stdio.h stdlib.h string.h unistd.h])
 AC_CHECK_FUNCS([memset])
 
-PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.10.0],,
+PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.10.0 x11],,
 		  AC_MSG_ERROR([>=GTK+-2.10 is required to compile ${PACKAGE_NAME}]
 ))
 
