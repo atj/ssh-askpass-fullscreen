@@ -1,3 +1,11 @@
+2016-01-27  Adam James <atj@pulsewidth.org.uk>
+
+	* ssh-askpass-fullscreen.c: merged a patch from Gregory Fong
+	(cha5on) that ensures the prompt appears on the same monitor as
+	the active window.
+
+	Version bump: 1.1
+
 2009-11-02  Adam James <atj@pulsewidth.org.uk>
 
 	* ssh-askpass-fullscreen.c: various minor fixes for compilation
