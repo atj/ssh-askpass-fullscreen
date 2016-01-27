@@ -235,35 +235,46 @@ passphrase_dialog(char *message)
 	GdkRectangle rect;
 	GdkColor color;
 	gchar *str;
-        GdkGrabStatus status;
-        int grab_tries = 0;
-        const char *failed;
-        
- 	grab_server = (getenv("GNOME_SSH_ASKPASS_GRAB_SERVER") != NULL);
- 	grab_pointer = (getenv("GNOME_SSH_ASKPASS_GRAB_POINTER") != NULL);
+	GdkGrabStatus status;
+	int grab_tries = 0;
+	const char *failed;
+	GdkScreen *screen = gdk_screen_get_default();
+	GdkWindow *active_window;
+	gint monitor_num;
+	GdkRectangle monitor_geometry;
+
+	grab_server = (getenv("GNOME_SSH_ASKPASS_GRAB_SERVER") != NULL);
+	grab_pointer = (getenv("GNOME_SSH_ASKPASS_GRAB_POINTER") != NULL);
+
+	active_window = gdk_screen_get_active_window(screen);
+	monitor_num = gdk_screen_get_monitor_at_window(screen, active_window);
+	gdk_screen_get_monitor_geometry(screen, monitor_num, &monitor_geometry);
 
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	gtk_window_set_default_size(GTK_WINDOW(window),
-				    gdk_screen_width(),
-				    gdk_screen_height());
+				    monitor_geometry.width,
+				    monitor_geometry.height);
 
 	gtk_widget_set_app_paintable(GTK_WIDGET(window), TRUE);
 	gtk_widget_realize(GTK_WIDGET(window));
 
 	tmp_pixbuf = gdk_pixbuf_get_from_drawable(NULL,
-						  gdk_get_default_root_window(),
+						  gdk_screen_get_root_window(screen),
 						  gdk_colormap_get_system(),
-						  0, 0, 0, 0,
-						  gdk_screen_width(),
-						  gdk_screen_height());
+						  monitor_geometry.x,
+						  monitor_geometry.y,
+						  0,
+						  0,
+						  monitor_geometry.width,
+						  monitor_geometry.height);
 
 	pixbuf = gdk_pixbuf_new_from_xpm_data(ocean_stripes);
 	
 	rect.x = 0;
 	rect.y = 0;
-	rect.width = gdk_screen_width();
-	rect.height = gdk_screen_height();
+	rect.width = monitor_geometry.width;
+	rect.height = monitor_geometry.height;
 
 	color.red = 0;
 	color.blue = 0;
@@ -277,23 +288,23 @@ passphrase_dialog(char *message)
 	
 	gdk_pixbuf_composite(tile_pixbuf, tmp_pixbuf,
 			     0, 0,
-			     gdk_screen_width(),
-			     gdk_screen_height(),
+			     monitor_geometry.width,
+			     monitor_geometry.height,
 			     0, 0, 1, 1,
 			     GDK_INTERP_NEAREST, 200);
 
 	g_object_unref(tile_pixbuf);
 
 	pixmap = gdk_pixmap_new(GTK_WIDGET(window)->window,
-				gdk_screen_width(),
-				gdk_screen_height(),
+				monitor_geometry.width,
+				monitor_geometry.height,
 				-1);
 
 	gdk_pixbuf_render_to_drawable_alpha(tmp_pixbuf,
 					    pixmap,
 					    0, 0, 0, 0,
-					    gdk_screen_width(),
-					    gdk_screen_height(),
+					    monitor_geometry.width,
+					    monitor_geometry.height,
 					    GDK_PIXBUF_ALPHA_BILEVEL,
 					    0, GDK_RGB_DITHER_NONE,
 					    0, 0);
