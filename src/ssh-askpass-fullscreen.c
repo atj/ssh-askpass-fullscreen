@@ -33,6 +33,7 @@
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 
 #ifdef __GNUC__
 #define ATTR_UNUSED	__attribute__((unused))
@@ -116,6 +117,7 @@ static const char *ocean_stripes[] = {
 
 GtkWidget *window, *label, *entry;
 gint grab_server, grab_pointer;
+int exit_code;
 
 static void
 report_failed_grab (const char *what)
@@ -205,12 +207,8 @@ create_tile_pixbuf (GdkPixbuf    *dest_pixbuf,
 }
 
 void
-enter_callback(GtkWidget *widget ATTR_UNUSED,
-               GtkWidget *entryw)
+ungrab()
 {
-	const gchar *passphrase;
-	passphrase = gtk_entry_get_text(GTK_ENTRY(entryw));
-
 	if (grab_server) 
 		XUngrabServer(GDK_DISPLAY()); 
 	if (grab_pointer) 
@@ -218,12 +216,48 @@ enter_callback(GtkWidget *widget ATTR_UNUSED,
 
 	gdk_keyboard_ungrab(GDK_CURRENT_TIME);
 	gdk_flush();
+}
+
+
+void
+enter_callback(GtkWidget *widget ATTR_UNUSED,
+               GtkWidget *entryw)
+{
+	const gchar *passphrase;
+	passphrase = gtk_entry_get_text(GTK_ENTRY(entryw));
+
+	ungrab();
 
 	puts(passphrase);
 		
 	memset((void*)passphrase, '\0', strlen(passphrase)); 
 	gtk_entry_set_text(GTK_ENTRY(entry), passphrase);
 	gtk_main_quit();
+}
+
+void
+cancel()
+{
+	ungrab();
+	exit_code = 1;
+	gtk_main_quit();
+}
+
+gboolean
+key_press_callback(GtkWidget *widget ATTR_UNUSED,
+               GdkEventKey *event,
+               GtkWidget *entryw ATTR_UNUSED)
+{
+	gboolean rv = FALSE;
+	switch (event->keyval)
+	{
+		case GDK_KEY_Escape:
+			cancel();
+			rv = TRUE;
+			break;
+	}
+
+	return rv;
 }
 
 void
@@ -349,6 +383,9 @@ passphrase_dialog(char *message)
 	g_signal_connect(G_OBJECT(entry), "activate",
 					  G_CALLBACK(enter_callback),
 					  (gpointer) entry);
+	g_signal_connect(window, "key_press_event",
+					  G_CALLBACK(key_press_callback),
+					  (gpointer) entry);
 
 	gtk_window_stick(GTK_WINDOW(window));
 	gtk_window_set_keep_above(GTK_WINDOW(window), TRUE);
@@ -405,6 +442,8 @@ passphrase_dialog(char *message)
 int
 main(int argc, char **argv)
 {
+	exit_code = 0;
+
 	gchar *message;
 
 	gtk_init(&argc, &argv);
@@ -417,5 +456,6 @@ main(int argc, char **argv)
 	setvbuf(stdout, 0, _IONBF, 0);
 	passphrase_dialog(message);
 	gtk_main();
-	return 0;
+
+	return exit_code;
 }
