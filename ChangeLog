@@ -1,3 +1,8 @@
+2022-12-20  Adam James <atj@pulsewidth.org.uk>
+	* Escape message passed to gtk_label_set_markup().
+
+	Version bump: 1.3
+
 2019-06-13  Adam James <atj@pulsewidth.org.uk>
 	* ssh-askpass-fullscreen.c: merged a slightly modified version of
 	a patch by richardk85 that allows the prompt to be cancelled by
