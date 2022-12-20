@@ -268,7 +268,7 @@ passphrase_dialog(char *message)
 	GdkPixmap *pixmap;
 	GdkRectangle rect;
 	GdkColor color;
-	gchar *str;
+	gchar *escaped_message, *str;
 	GdkGrabStatus status;
 	int grab_tries = 0;
 	const char *failed;
@@ -367,8 +367,10 @@ passphrase_dialog(char *message)
 
 	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 12);
 
+	escaped_message = g_markup_escape_text(message, strlen(message));
 	str = g_strdup_printf("<span foreground=\"white\" size=\"xx-large\"><b>%s</b></span>",
-						  message);
+						  escaped_message);
+	g_free(escaped_message);
 	gtk_label_set_markup(GTK_LABEL(label), str);
 	g_free(str);
 
